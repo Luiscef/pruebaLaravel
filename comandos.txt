@@ -1,0 +1,20 @@
+php artisan migrate:fresh
+
+php artisan make:request ProductRequest
+
+php artisan migrate
+
+php artisan make:migration create_categories_table --create=categories
+
+php artisan make:model Category
+
+php artisan serve
+
+php artisan make:controller ProductController --resource
+
+composer create laravel/laravel prueba2
+
+php artisan key:generate
+
+New-Item database.sqlite -ItemType File
+

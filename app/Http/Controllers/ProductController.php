@@ -26,7 +26,7 @@ class ProductController extends Controller
         'price' => $request->price,
     ]);
 
-    return redirect()->route('products.index');
+    return redirect()->route('products.index')->with('success', 'Producto creado correctamente.');
 }
 
 
@@ -42,14 +42,14 @@ class ProductController extends Controller
         'price' => $request->price,
     ]);
 
-    return redirect()->route('products.index');
+    return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.');
 }
 
 
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Producto eliminado correctamente.');;
     }
 
     public function show ()

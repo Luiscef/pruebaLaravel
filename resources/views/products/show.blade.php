@@ -3,6 +3,7 @@
 @section('title', 'Detalle del Producto')
 
 @section('content')
+
 <a href="{{ route('products.index') }}" class="btn btn-primary">Volver</a>
 <table class="table table-success table-striped">
 <thead>
@@ -18,7 +19,7 @@
 <tbody>
     <tr>
         <td>{{ $product->name }}</td>
-        <td>${{ $product->price }}</td>
+        <td>L.{{ number_format($product->price, 2, '.', ',') }}</td>
     
 
     </tr>

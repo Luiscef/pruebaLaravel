@@ -3,13 +3,19 @@
 @section('title', 'Listado de Productos')
 
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 <h1>Productos</h1>
 
 
 @if($products->isEmpty())
 <p>No hay productos registrados.</p>
 @else
-<table class="table table-success table-striped">
+<table id="products-table" class="table table-success table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -21,7 +27,7 @@
         @foreach ($products as $product)
         <tr>
             <td>{{ $product->name }}</td>
-            <td>${{ $product->price }}</td>
+            <td>L.{{ number_format($product->price, 2, '.', ',') }}</td>
             <td>
                 <a href="{{ route('products.show', $product->id) }}" class="btn btn-success btn-sm">
                     <i class="bi bi-eye"></i>
