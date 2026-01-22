@@ -14,30 +14,9 @@
             <h5 class="mb-1">
                 <i class="bi bi-hand-wave me-2"></i>¡Hola, {{ Auth::user()->name }}!
             </h5>
-            <small class="text-muted">{{ Auth::user()->email }}</small>
+            
         </div>
-        <div class="text-end">
-            <span class="d-block text-muted small">Tu rol:</span>
-            @php
-                $role = Auth::user()->role;
-                $badgeClass = match($role?->name) {
-                    'admin' => 'bg-danger',
-                    'editor' => 'bg-warning text-dark',
-                    'user' => 'bg-info',
-                    default => 'bg-secondary'
-                };
-                $roleIcon = match($role?->name) {
-                    'admin' => 'bi-shield-fill-check',
-                    'editor' => 'bi-pencil-square',
-                    'user' => 'bi-person-fill',
-                    default => 'bi-question-circle'
-                };
-            @endphp
-            <span class="badge {{ $badgeClass }} fs-6">
-                <i class="bi {{ $roleIcon }} me-1"></i>
-                {{ $role ? ucfirst($role->name) : 'Sin rol' }}
-            </span>
-        </div>
+        
     </div>
 </div>
 @endauth
