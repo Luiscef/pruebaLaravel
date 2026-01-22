@@ -22,6 +22,10 @@ class ProductController extends Controller
         
         return view('products.create');
     }
+public function confirmDelete(Product $product)
+{
+    return view('products.confirm-delete', compact('product'));
+}
 
     public function store(ProductRequest $request)
     {

@@ -98,19 +98,15 @@
                                     
                                     
                                     @auth
-                                        @if(Auth::user()->hasRole('admin'))
-                                            <form action="{{ route('products.destroy', $product->id) }}" 
-                                                  method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-outline-danger btn-sm" title="Eliminar"
-                                                        onclick="return confirm('¿Eliminar este producto?')">
-                                                    <i class="bi bi-trash-fill"></i>
-                                                    <span class="d-none d-lg-inline ms-1">Eliminar</span>
-                                                </button>
-                                            </form>
-                                        @endif
-                                    @endauth
+    @if(Auth::user()->hasRole('admin'))
+        <a href="{{ route('products.confirmDelete', $product->id) }}" 
+           class="btn btn-outline-danger btn-sm" title="Eliminar">
+            <i class="bi bi-trash-fill"></i>
+            <span class="d-none d-lg-inline ms-1">Eliminar</span>
+        </a>
+    @endif
+@endauth
+
                                 </div>
                             </td>
                         </tr>

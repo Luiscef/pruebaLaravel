@@ -14,6 +14,19 @@ Route::middleware('guest')->group(function () {
 
 // Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::middleware(['auth', 'unauthorized.view'])->group(function () {
+    Route::get('/products/create', [ProductController::class, 'create'])
+        ->name('products.create')
+        ->middleware('can:create,App\Models\Product');
+
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])
+        ->name('products.edit')
+        ->middleware('can:update,product');
+});
+// Pantalla para confirmar eliminación
+Route::get('/products/{product}/confirm-delete', [ProductController::class, 'confirmDelete'])
+    ->name('products.confirmDelete')
+    ->middleware('can:delete,product');
 
 // Rutas protegidas (requieren login)
 // Rutas protegidas
