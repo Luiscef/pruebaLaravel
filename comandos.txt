@@ -18,3 +18,8 @@ php artisan key:generate
 
 New-Item database.sqlite -ItemType File
 
+php artisan tinker
+
+\App\Models\Role::all();
+
+\App\Models\User::all();

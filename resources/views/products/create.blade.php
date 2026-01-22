@@ -29,7 +29,8 @@
     </div>
     <div class="mb-3">
         <label for="price" class="form-label">Precio</label>
-        <input type="text" step="0.01" class="form-control myInput" id="price" name="price" value="{{ old('price') ? number_format(old('price'), 2, ',', '.') : '' }}" min="1" max="1000000" required>
+        <input type="text" step="0.01" class="form-control myInput" id="price" name="price" value="{{ old('price') }}" min="1" max="1000000" required>
+
 
     <button type="submit" class="btn btn-success">Guardar</button>
     <a href="{{ route('products.index') }}" class="btn btn-secondary">Cancelar</a>
