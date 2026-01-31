@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -16,24 +17,26 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'usuario' => 'required|string',
             'password' => 'required|min:6',
-        ], [
-            'email.required' => 'El correo es obligatorio.',
-            'email.email' => 'Ingresa un correo válido.',
-            'password.required' => 'La contraseña es obligatoria.',
-            'password.min' => 'Mínimo 6 caracteres.',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'), $request->filled('remember'))) {
-            $request->session()->regenerate();
-            return redirect()->route('products.index')
-                ->with('success', '¡Bienvenido ' . Auth::user()->name . '!');
+        $user = User::authenticate(
+            $request->usuario,
+            $request->password
+        );
+
+        if (! $user) {
+            return back()->withErrors([
+                'usuario' => 'Credenciales incorrectas.',
+            ])->onlyInput('usuario');
         }
 
-        return back()->withErrors([
-            'email' => 'Credenciales incorrectas.',
-        ])->onlyInput('email');
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        return redirect()->route('products.index')
+            ->with('success', '¡Bienvenido ' . $user->name . '!');
     }
 
     public function showRegister()
@@ -45,20 +48,14 @@ class AuthController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
+            'usuario' => 'required|string|unique:users,usuario',
             'password' => 'required|min:6|confirmed',
-        ], [
-            'name.required' => 'El nombre es obligatorio.',
-            'email.required' => 'El correo es obligatorio.',
-            'email.unique' => 'Este correo ya está registrado.',
-            'password.required' => 'La contraseña es obligatoria.',
-            'password.confirmed' => 'Las contraseñas no coinciden.',
         ]);
 
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password,
+            'usuario' => $request->usuario,
+            'password' => Hash::make($request->password),
         ]);
 
         Auth::login($user);

@@ -18,8 +18,8 @@ php artisan key:generate
 
 New-Item database.sqlite -ItemType File
 
-composer require laravel/fortify
+php artisan tinker
 
-php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
+\App\Models\Role::all();
 
-php artisan make:middleware AuthMiddleware
+\App\Models\User::all();

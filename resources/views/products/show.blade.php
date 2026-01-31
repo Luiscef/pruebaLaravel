@@ -28,7 +28,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                        
                             <tr>
                                 <td><strong>{{ $product->name }}</strong></td>
                                 <td>
@@ -37,7 +37,7 @@
                                     </span>
                                 </td>
                             </tr>
-                            @endforeach
+                           
                         </tbody>
                     </table>
                 </div>
